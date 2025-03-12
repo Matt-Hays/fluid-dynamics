@@ -1,11 +1,10 @@
-// PipelineViewModel.ts
 import { reactive, ref } from 'vue'
 import Pipeline from '@/models/Pipeline.ts'
 import Section from '@/models/Section.ts'
 import { calcTDH } from '@/models/bernoulli.ts'
+import type { pipeline } from '@/customTypes.ts'
 
 export default class CurveViewModel {
-  // Reactive state for the pipeline input data
   public pipeline = reactive({
     startFlowRate: null as number | null,
     endFlowRate: null as number | null,
@@ -32,7 +31,6 @@ export default class CurveViewModel {
   public tdhMaxData = ref<Array<[number, number]>>([])
   public tdhMinData = ref<Array<[number, number]>>([])
 
-  // Add a new section
   public addSection(): void {
     this.pipeline.sections.push({
       absoluteRoughness: 0,
@@ -45,12 +43,10 @@ export default class CurveViewModel {
     })
   }
 
-  // Remove a section by index
   public removeSection(index: number): void {
     this.pipeline.sections.splice(index, 1)
   }
 
-  // Utility to generate an array of flow rates
   public generateFlowRateArray(flowRate: number | null, count: number = 20): number[] {
     if (flowRate === null || flowRate <= 0) {
       throw new Error('Invalid flow rate.')
@@ -63,7 +59,11 @@ export default class CurveViewModel {
     return values
   }
 
-  // Submit the form data, calculate TDH, and update tdhData
+  public onSubmitPipeline(newData: pipeline) {
+    console.log('Pipeline: ', this.pipeline)
+    Object.assign(this.pipeline, newData)
+  }
+
   public submitForm(): void {
     try {
       // Convert the form data into Section instances
@@ -80,11 +80,9 @@ export default class CurveViewModel {
           ),
       )
 
-      // Ensure there is at least one section
       if (sections.length === 0) throw new Error('Pipeline must have at least one section.')
       if (!this.pipeline.kinematicViscosity) throw new Error('Kinematic viscosity must be given.')
 
-      // Create the Pipeline instance
       const pipe = new Pipeline(
         sections,
         this.pipeline.startEleMin!,
@@ -103,7 +101,6 @@ export default class CurveViewModel {
       const startFlowRates = this.generateFlowRateArray(this.pipeline.startFlowRate)
       const endFlowRates = this.generateFlowRateArray(this.pipeline.endFlowRate)
 
-      // Calculate TDH using the provided Bernoulli-based function
       const [maxHeads, minHeads] = calcTDH(
         pipe,
         startFlowRates,
@@ -112,7 +109,6 @@ export default class CurveViewModel {
         this.pipeline.isMetric,
       )
 
-      // Map the flow rates and computed heads into tdhData for charting
       this.tdhMaxData.value = startFlowRates.map((flow, i) => [flow, maxHeads[i]])
       this.tdhMinData.value = startFlowRates.map((flow, i) => [flow, minHeads[i]])
     } catch (error: any) {
