@@ -2,7 +2,6 @@ import { reactive, ref } from 'vue'
 import Pipeline from '@/models/Pipeline.ts'
 import Section from '@/models/Section.ts'
 import { calcTDH } from '@/models/bernoulli.ts'
-import type { pipeline } from '@/customTypes.ts'
 
 export default class CurveViewModel {
   public pipeline = reactive({
@@ -57,11 +56,6 @@ export default class CurveViewModel {
       values.push(i * step)
     }
     return values
-  }
-
-  public onSubmitPipeline(newData: pipeline) {
-    console.log('Pipeline: ', this.pipeline)
-    Object.assign(this.pipeline, newData)
   }
 
   public submitForm(): void {
