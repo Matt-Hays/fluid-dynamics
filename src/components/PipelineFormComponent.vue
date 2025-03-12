@@ -37,7 +37,6 @@ const localPipeline = reactive({
 })
 
 function onSubmit() {
-  console.log("Inside pipeline componet on submit: ", localPipeline)
   emit('submit-pipeline', localPipeline)
 }
 
