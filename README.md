@@ -94,7 +94,7 @@ by creating a **GitHub issue**.
 
 1. **Go to the Repository on GitHub**  
    Navigate to the repository:  
-   👉 [GitHub Repo](https://github.com/matt-hays/fluid-dynamics) _(adjust if the repository name is different)._
+   👉 [GitHub Repo](https://github.com/matt-hays/fluid-dynamics)   
 2. **Click on the “Issues” Tab**  
    At the top of the repository page, click **“Issues.”**
 3. **Press the “New Issue” Button**  
@@ -104,7 +104,9 @@ by creating a **GitHub issue**.
       Converting Correctly"_).
     - **Description:** Provide more details. If it is a feature request, explain what you’d like to see. If it’s a bug,
       describe what happened (e.g., _"I entered a negative flow rate and it crashed."_).
-5. **Submit Your Issue**  
+5. **Add a Label**  
+   Select the appropriate label for your request (e.g., _"Enhancement"_, _"Bug"_, etc.).
+6. **Submit Your Issue**  
    Click **“Submit new issue.”**
 
 ---
