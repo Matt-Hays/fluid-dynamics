@@ -153,7 +153,7 @@ function getVelocity(flowRate: number, diameter: number): number {
 }
 
 function getPressureToFeetCorrection(isMetric: boolean): number {
-  return isMetric ? 10.2 : 2.31
+  return isMetric ? 0.102 : 2.31
 }
 
 function getAvgVelocityHead(
